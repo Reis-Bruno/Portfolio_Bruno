@@ -16,6 +16,17 @@ import {
 export default function CurriculumViewer() {
   const [isOpen, setIsOpen] = useState(false)
 
+  const handleDownloadCV = () => {
+    // Create a link element and trigger download
+    const link = document.createElement("a")
+    link.href = "/files/bruno-reis-cv.pdf"
+    link.download = "Bruno-Reis-CV.pdf"
+    link.target = "_blank"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
@@ -36,11 +47,9 @@ export default function CurriculumViewer() {
         </DialogHeader>
         <div className="flex justify-end">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button asChild variant="outline" size="sm">
-              <a href="/files/bruno-reis-cv.pdf" download>
-                <Download className="mr-2 h-4 w-4" />
-                Download PDF
-              </a>
+            <Button variant="outline" size="sm" onClick={handleDownloadCV}>
+              <Download className="mr-2 h-4 w-4" />
+              Download PDF
             </Button>
           </motion.div>
         </div>
