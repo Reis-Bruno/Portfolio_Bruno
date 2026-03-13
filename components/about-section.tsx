@@ -26,6 +26,20 @@ interface CertificationItem {
 export default function AboutSection() {
   const experiences: ExperienceItem[] = [
     {
+      title: "Analista de BI Jr",
+      company: "S.I.N",
+      location: "São Paulo, SP",
+      period: "08/2025 - Atual",
+      description: [
+        "Desenvolvimento e manutenção de dashboards interativos no Power BI, com foco em indicadores estratégicos e operacionais.",
+        "Criação e acompanhamento de KPIs, apoiando a gestão na tomada de decisão baseada em dados.",
+        "Coleta, tratamento e modelagem de dados utilizando SQL, garantindo qualidade, integridade e performance das análises.",
+        "Integração de dados provenientes de diferentes fontes (bancos de dados, planilhas e sistemas internos).",
+        "Automação de relatórios e fluxos de dados com Power Automate, otimizando processos e reduzindo atividades manuais.",
+        "Validação, limpeza e padronização de bases de dados para assegurar consistência das informações.",
+      ],
+    },
+    {
       title: "Analista de Vendas",
       company: "WEG",
       location: "São Paulo, SP",
@@ -63,6 +77,12 @@ export default function AboutSection() {
 
   const education: EducationItem[] = [
     {
+      degree: "Ciência de Dados com IA",
+      institution: "FIAP",
+      location: "São Paulo, SP",
+      period: "01/2026 - 12/2026 (Cursando)",
+    },
+    {
       degree: "Engenharia da Computação",
       institution: "Faculdade Engenheiro Salvador Arena",
       location: "São Bernardo do Campo, SP",
@@ -70,12 +90,6 @@ export default function AboutSection() {
     },
     {
       degree: "Técnico Em Eletrônica",
-      institution: "Etec Lauro Gomes",
-      location: "São Bernardo do Campo, SP",
-      period: "Concluído",
-    },
-    {
-      degree: "Ensino Médio",
       institution: "Etec Lauro Gomes",
       location: "São Bernardo do Campo, SP",
       period: "Concluído",

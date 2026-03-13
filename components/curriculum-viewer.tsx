@@ -84,6 +84,23 @@ export default function CurriculumViewer() {
               <div className="mt-2 space-y-3 sm:space-y-4">
                 <div>
                   <h4 className="text-sm font-medium text-gray-900 transition-colors duration-300 dark:text-white">
+                    S.I.N - Analista de BI Jr
+                  </h4>
+                  <p className="text-xs text-gray-500 transition-colors duration-300 dark:text-gray-400 sm:text-sm">
+                    São Paulo, São Paulo | 08/2025 - Atual
+                  </p>
+                  <ul className="mt-1 list-disc space-y-1 pl-4 text-xs text-gray-600 transition-colors duration-300 dark:text-gray-300 sm:pl-5 sm:text-sm">
+                    <li>Desenvolvimento e manutenção de dashboards interativos no Power BI, com foco em indicadores estratégicos e operacionais.</li>
+                    <li>Criação e acompanhamento de KPIs, apoiando a gestão na tomada de decisão baseada em dados.</li>
+                    <li>Coleta, tratamento e modelagem de dados utilizando SQL, garantindo qualidade, integridade e performance das análises.</li>
+                    <li>Integração de dados provenientes de diferentes fontes (bancos de dados, planilhas e sistemas internos).</li>
+                    <li>Automação de relatórios e fluxos de dados com Power Automate, otimizando processos e reduzindo atividades manuais.</li>
+                    <li>Validação, limpeza e padronização de bases de dados para assegurar consistência das informações.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-medium text-gray-900 transition-colors duration-300 dark:text-white">
                     WEG - Analista de Vendas
                   </h4>
                   <p className="text-xs text-gray-500 transition-colors duration-300 dark:text-gray-400 sm:text-sm">
@@ -124,21 +141,6 @@ export default function CurriculumViewer() {
                     </li>
                   </ul>
                 </div>
-
-                <div>
-                  <h4 className="text-sm font-medium text-gray-900 transition-colors duration-300 dark:text-white">
-                    Csi Cargo Logística Integral S/A - Operador Polivalente
-                  </h4>
-                  <p className="text-xs text-gray-500 transition-colors duration-300 dark:text-gray-400 sm:text-sm">
-                    São Paulo, SP | 12/2019 - 07/2021
-                  </p>
-                  <ul className="mt-1 list-disc space-y-1 pl-4 text-xs text-gray-600 transition-colors duration-300 dark:text-gray-300 sm:pl-5 sm:text-sm">
-                    <li>
-                      Utilização dos Sistemas SAP e WMS Garden para elaboração de tabelas e resolução de problemas na
-                      operação.
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
 
@@ -165,6 +167,16 @@ export default function CurriculumViewer() {
                 <div className="mt-1 space-y-2 text-xs text-gray-600 transition-colors duration-300 dark:text-gray-300 sm:text-sm">
                   <div>
                     <p className="font-medium text-gray-900 transition-colors duration-300 dark:text-white">
+                      FIAP
+                    </p>
+                    <p>São Paulo, SP</p>
+                    <p>Ciência de Dados com IA</p>
+                    <p className="text-gray-500 transition-colors duration-300 dark:text-gray-400">
+                      01/2026 - 12/2026 (Cursando)
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-900 transition-colors duration-300 dark:text-white">
                       Faculdade Engenheiro Salvador Arena
                     </p>
                     <p>São Bernardo do Campo, SP</p>
@@ -179,13 +191,6 @@ export default function CurriculumViewer() {
                     </p>
                     <p>São Bernardo do Campo, SP</p>
                     <p>Técnico Em Eletrônica</p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900 transition-colors duration-300 dark:text-white">
-                      Etec Lauro Gomes
-                    </p>
-                    <p>São Bernardo do Campo, SP</p>
-                    <p>Ensino Médio</p>
                   </div>
                 </div>
               </div>
