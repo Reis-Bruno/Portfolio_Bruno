@@ -164,9 +164,9 @@ export default function Home() {
                   Análise de Dados & Dashboards Power BI
                 </h1>
                 <p className="mb-6 text-base text-gray-600 transition-colors duration-300 dark:text-gray-300 sm:text-lg">
-                  Olá, sou Bruno Reis, analista de dados e formado em Engenharia da Computação. Especializado em
-                  transformar informações complexas em insights acionáveis através de visualizações interativas e
-                  dashboards intuitivos com Power BI.
+                  Olá, sou Bruno Reis, Analista de BI Jr na S.I.N, formado em Engenharia da Computação e atualmente
+                  cursando Ciência de Dados com IA na FIAP. Especializado em transformar informações complexas em
+                  insights acionáveis através de visualizações interativas e dashboards intuitivos com Power BI.
                 </p>
                 <div className="flex flex-col space-y-3 sm:flex-row sm:justify-center sm:space-x-4 sm:space-y-0 md:justify-start">
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -224,7 +224,7 @@ export default function Home() {
                 { title: "Microsoft Office", desc: "Excel, Word, PowerPoint avançado" },
                 { title: "Databricks", desc: "Processamento e análise de dados" },
                 { title: "Inglês", desc: "Nível intermediário" },
-                { title: "Análise de Dados", desc: "Extração e tratamento de dados" },
+                { title: "Power Automate", desc: "Automação de relatórios e fluxos" },
               ].map((skill, index) => (
                 <FadeInUp key={skill.title} delay={index * 0.1}>
                   <motion.div
