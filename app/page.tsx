@@ -2,417 +2,74 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Download, Linkedin, Mail, Menu, X } from "lucide-react"
+import { ArrowUpRight, BarChart3, Database, Download, Linkedin, Mail, Menu, MessageCircle, Sparkles, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import ProjectCard from "@/components/project-card"
 import AboutSection from "@/components/about-section"
-import CurriculumViewer from "@/components/curriculum-viewer"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { AnimatedSection, FadeInUp, SlideInLeft, SlideInRight } from "@/components/animated-section"
+
+const skills = [
+  { title: "Business Intelligence", detail: "Power BI, DAX avançado, Power Query e storytelling", icon: BarChart3 },
+  { title: "Dados & ETL", detail: "SQL Server, APIs REST, Power Automate e pipelines", icon: Database },
+  { title: "Advanced Analytics", detail: "Python, Databricks e modelagem preditiva", icon: Sparkles },
+]
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen)
-  }
-
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false)
-  }
-
-  const handleDownloadCV = () => {
-    // Create a link element and trigger download
-    const link = document.createElement("a")
-    link.href = "/files/bruno-reis-cv.pdf"
-    link.download = "Bruno-Reis-CV.pdf"
-    link.target = "_blank"
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
+  const closeMobileMenu = () => setMobileMenuOpen(false)
+  const handleDownloadCV = () => window.open("/files/bruno-reis-cv.pdf", "_blank")
 
   return (
-    <div className="min-h-screen bg-white transition-colors duration-300 dark:bg-gray-900">
-      {/* Header */}
-      <motion.header
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur-md transition-colors duration-300 dark:border-gray-800 dark:bg-gray-900/90"
-      >
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="text-xl font-bold text-gray-900 transition-colors duration-300 dark:text-white">
-            Bruno Reis
+    <div className="min-h-screen bg-background text-foreground">
+      <motion.header initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-xl">
+        <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 lg:px-8">
+          <Link href="#inicio" className="group flex items-center gap-3" aria-label="Voltar ao início">
+            <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-sm font-bold text-primary-foreground">BR</span>
+            <span className="hidden text-sm font-semibold tracking-tight sm:block">Bruno Reis<span className="text-primary">.</span></span>
           </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:block">
-            <ul className="flex space-x-8">
-              <li>
-                <Link
-                  href="#sobre"
-                  className="text-sm font-medium text-gray-700 transition-colors duration-300 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                >
-                  Sobre
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#projetos"
-                  className="text-sm font-medium text-gray-700 transition-colors duration-300 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                >
-                  Projetos
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#contato"
-                  className="text-sm font-medium text-gray-700 transition-colors duration-300 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                >
-                  Contato
-                </Link>
-              </li>
-            </ul>
+          <nav className="hidden items-center gap-8 md:flex" aria-label="Navegação principal">
+            {[["Sobre", "#sobre"], ["Experiência", "#experiencia"], ["Projetos", "#projetos"], ["Contato", "#contato"]].map(([label, href]) => <Link key={href} href={href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">{label}</Link>)}
           </nav>
-
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleDownloadCV}
-              className="bg-transparent transition-all duration-300 hover:scale-105"
-            >
-              <Download className="mr-2 h-4 w-4" />
-              Currículo
-            </Button>
-          </div>
-
-          {/* Mobile Actions */}
-          <div className="flex md:hidden items-center space-x-2">
-            <ThemeToggle />
-            <Button variant="ghost" size="icon" onClick={toggleMobileMenu} className="h-9 w-9">
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+            <Button variant="outline" size="sm" onClick={handleDownloadCV} className="hidden sm:inline-flex"><Download data-icon="inline-start" />Currículo</Button>
+            <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Abrir menu">{mobileMenuOpen ? <X /> : <Menu />}</Button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="border-t bg-white/95 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/95 md:hidden"
-            >
-              <div className="container mx-auto px-4 py-4">
-                <nav className="space-y-4">
-                  <Link
-                    href="#sobre"
-                    onClick={closeMobileMenu}
-                    className="block text-sm font-medium text-gray-700 transition-colors duration-300 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                  >
-                    Sobre
-                  </Link>
-                  <Link
-                    href="#projetos"
-                    onClick={closeMobileMenu}
-                    className="block text-sm font-medium text-gray-700 transition-colors duration-300 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                  >
-                    Projetos
-                  </Link>
-                  <Link
-                    href="#contato"
-                    onClick={closeMobileMenu}
-                    className="block text-sm font-medium text-gray-700 transition-colors duration-300 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                  >
-                    Contato
-                  </Link>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      handleDownloadCV()
-                      closeMobileMenu()
-                    }}
-                    className="w-full bg-transparent transition-all duration-300"
-                  >
-                    <Download className="mr-2 h-4 w-4" />
-                    Download Currículo
-                  </Button>
-                </nav>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <AnimatePresence>{mobileMenuOpen && <motion.nav initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="border-t border-border/70 px-5 py-5 md:hidden"><div className="flex flex-col gap-4"><Link href="#sobre" onClick={closeMobileMenu}>Sobre</Link><Link href="#experiencia" onClick={closeMobileMenu}>Experiência</Link><Link href="#projetos" onClick={closeMobileMenu}>Projetos</Link><Link href="#contato" onClick={closeMobileMenu}>Contato</Link><Button onClick={handleDownloadCV}>Baixar currículo</Button></div></motion.nav>}</AnimatePresence>
       </motion.header>
 
-      <main>
-        {/* Hero Section */}
-        <section id="sobre" className="container mx-auto px-4 py-12 md:py-16 lg:py-24">
-          <div className="grid gap-8 md:grid-cols-2 md:gap-12 lg:items-center">
-            <SlideInLeft>
-              <div className="text-center md:text-left">
-                <h1 className="mb-4 text-3xl font-bold tracking-tight text-gray-900 transition-colors duration-300 dark:text-white sm:text-4xl md:text-5xl">
-                  Análise de Dados & Dashboards Power BI
-                </h1>
-                <p className="mb-6 text-base text-gray-600 transition-colors duration-300 dark:text-gray-300 sm:text-lg">
-                  Olá, sou Bruno Reis, Analista de BI Jr na S.I.N, formado em Engenharia da Computação e atualmente
-                  cursando Ciência de Dados com IA na FIAP. Especializado em transformar informações complexas em
-                  insights acionáveis através de visualizações interativas e dashboards intuitivos com Power BI.
-                </p>
-                <div className="flex flex-col space-y-3 sm:flex-row sm:justify-center sm:space-x-4 sm:space-y-0 md:justify-start">
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button asChild size="lg" className="w-full transition-all duration-300 sm:w-auto">
-                      <Link href="#projetos">Ver Projetos</Link>
-                    </Button>
-                  </motion.div>
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      onClick={handleDownloadCV}
-                      className="w-full transition-all duration-300 bg-transparent sm:w-auto"
-                    >
-                      <Download className="mr-2 h-4 w-4" />
-                      Download CV
-                    </Button>
-                  </motion.div>
-                </div>
-                <div className="mt-6">
-                  <CurriculumViewer />
-                </div>
-              </div>
-            </SlideInLeft>
-            <SlideInRight>
-              <div className="flex justify-center">
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  whileHover={{ scale: 1.05 }}
-                  className="relative h-48 w-48 overflow-hidden rounded-full border-4 border-gray-200 transition-all duration-300 dark:border-gray-700 sm:h-64 sm:w-64 md:h-80 md:w-80"
-                >
-                  <Image src="/images/bruno-reis.png" alt="Bruno Reis" fill className="object-cover" priority />
-                </motion.div>
-              </div>
-            </SlideInRight>
+      <main id="inicio">
+        <section className="relative overflow-hidden border-b border-border/70">
+          <div className="pointer-events-none absolute -right-32 -top-40 size-[32rem] rounded-full bg-primary/10 blur-3xl" />
+          <div className="mx-auto grid max-w-6xl gap-14 px-5 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-8 lg:py-32">
+            <motion.div initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: .6 }}>
+              <p className="mb-5 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary"><span className="size-2 rounded-full bg-primary" />Disponível para oportunidades</p>
+              <h1 className="max-w-3xl text-5xl font-semibold leading-[0.98] tracking-[-0.05em] sm:text-6xl lg:text-8xl">Dados que viram <span className="text-primary">decisões.</span></h1>
+              <p className="mt-7 max-w-2xl text-lg leading-8 text-muted-foreground">Sou Bruno Reis, profissional de dados especializado em Business Intelligence e Inteligência de Mercado. Transformo bases complexas em indicadores claros, análises acionáveis e soluções preditivas.</p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row"><Button asChild size="lg"><Link href="#projetos">Explorar projetos <ArrowUpRight data-icon="inline-end" /></Link></Button><Button variant="outline" size="lg" onClick={handleDownloadCV}>Baixar currículo <Download data-icon="inline-end" /></Button></div>
+              <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted-foreground"><span>São Bernardo do Campo, SP</span><span>Inglês avançado</span><span>FIAP · Ciência de Dados</span></div>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, scale: .92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .7, delay: .15 }} className="relative mx-auto w-full max-w-sm lg:max-w-none">
+              <div className="absolute -inset-3 rounded-[2rem] border border-primary/20" /><div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-muted"><Image src="/images/bruno-reis.png" alt="Bruno Reis" fill priority className="object-cover object-top grayscale-[18%]" /></div>
+              <div className="absolute -bottom-5 -left-5 rounded-2xl border border-border bg-card p-4 shadow-xl"><p className="text-2xl font-semibold">3+ anos</p><p className="text-xs text-muted-foreground">em dados e analytics</p></div>
+            </motion.div>
           </div>
         </section>
 
-        {/* Skills Section */}
-        <section className="bg-gray-50 py-12 transition-colors duration-300 dark:bg-gray-800 md:py-16">
-          <div className="container mx-auto px-4">
-            <FadeInUp>
-              <h2 className="mb-8 text-center text-2xl font-bold text-gray-900 transition-colors duration-300 dark:text-white sm:mb-12 sm:text-3xl">
-                Habilidades & Expertise
-              </h2>
-            </FadeInUp>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-6">
-              {[
-                { title: "Power BI", desc: "Dashboards interativos e relatórios analíticos" },
-                { title: "SQL", desc: "Consultas e manipulação de bancos de dados" },
-                { title: "C# e Python", desc: "Desenvolvimento de aplicações" },
-                { title: "HTML/CSS", desc: "Desenvolvimento web" },
-                { title: "Microsoft Office", desc: "Excel, Word, PowerPoint avançado" },
-                { title: "Databricks", desc: "Processamento e análise de dados" },
-                { title: "Inglês", desc: "Nível intermediário" },
-                { title: "Power Automate", desc: "Automação de relatórios e fluxos" },
-              ].map((skill, index) => (
-                <FadeInUp key={skill.title} delay={index * 0.1}>
-                  <motion.div
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    className="rounded-lg bg-white p-4 text-center shadow-sm transition-all duration-300 dark:bg-gray-700 sm:p-6"
-                  >
-                    <h3 className="mb-2 text-sm font-semibold text-gray-900 transition-colors duration-300 dark:text-white sm:text-base">
-                      {skill.title}
-                    </h3>
-                    <p className="text-xs text-gray-600 transition-colors duration-300 dark:text-gray-300 sm:text-sm">
-                      {skill.desc}
-                    </p>
-                  </motion.div>
-                </FadeInUp>
-              ))}
-            </div>
-          </div>
-        </section>
+        <section id="sobre" className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28"><div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr]"><div><p className="eyebrow">Perfil profissional</p><h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">Analítico por natureza.<br />Orientado a impacto.</h2></div><div><p className="text-xl leading-9 text-muted-foreground">Com formação em Engenharia da Computação e especialização em Ciência de Dados e IA, atuo na interseção entre negócio, tecnologia e dados.</p><p className="mt-6 leading-7 text-muted-foreground">Minha experiência passa por modelagem dimensional, construção de dashboards executivos, governança e segurança com RLS, integração de APIs e automação de rotinas. Também aplico Python e machine learning para levar as análises além do descritivo.</p><div className="mt-9 grid gap-4 sm:grid-cols-3">{skills.map((skill) => { const Icon = skill.icon; return <div key={skill.title} className="rounded-2xl border border-border bg-card p-5"><Icon className="mb-6 text-primary" /><h3 className="font-semibold">{skill.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{skill.detail}</p></div> })}</div></div></div></section>
 
-        {/* About Section - Detailed */}
-        <AboutSection />
+        <section id="experiencia"><AboutSection /></section>
+        <section id="projetos" className="border-y border-border/70 bg-muted/35"><div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28"><p className="eyebrow">Seleção de trabalhos</p><div className="mt-4 flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Projetos em destaque</h2><p className="max-w-sm text-sm leading-6 text-muted-foreground">Dashboards e análises desenvolvidos para responder perguntas reais de negócio.</p></div><div className="mt-12 grid gap-6 lg:grid-cols-2"><ProjectCard title="Relação de Vendas Detalhadas" description="Dashboard interativo para análise de vendas por período, produto e região." embedUrl="https://app.powerbi.com/view?r=eyJrIjoiMTA2YmQwZTEtZTlhMy00M2U3LWEzMjAtZThkMDc0YmFjMGUwIiwidCI6IjAxYzUzZDA1LWVlYjgtNDMwYi05MThkLWRlMmNlYjFiNWE1ZCJ9" /><ProjectCard title="Projeto PRCJB" description="Indicadores de desempenho, tendências e métricas-chave para acompanhamento estratégico." embedUrl="https://app.powerbi.com/view?r=eyJrIjoiZmE1OWQxZjgtZGYyOC00NmQ1LWJkYTMtMmYzZmI5ZWFhMzFiIiwidCI6IjAxYzUzZDA1LWVlYjgtNDMwYi05MThkLWRlMmNlYjFiNWE1ZCJ9" /></div></div></section>
 
-        {/* Projects Section */}
-        <section id="projetos" className="container mx-auto px-4 py-12 md:py-16 lg:py-24">
-          <AnimatedSection>
-            <h2 className="mb-2 text-2xl font-bold text-gray-900 transition-colors duration-300 dark:text-white sm:text-3xl">
-              Projetos em Destaque
-            </h2>
-            <p className="mb-8 text-gray-600 transition-colors duration-300 dark:text-gray-300 sm:mb-12">
-              Confira alguns dos meus trabalhos recentes com Power BI
-            </p>
-          </AnimatedSection>
-          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-            <FadeInUp delay={0.2}>
-              <ProjectCard
-                title="Relação de Vendas Detalhadas"
-                description="Dashboard interativo para análise detalhada de vendas, permitindo filtros por período, produto e região."
-                embedUrl="https://app.powerbi.com/view?r=eyJrIjoiMTA2YmQwZTEtZTlhMy00M2U3LWEzMjAtZThkMDc0YmFjMGUwIiwidCI6IjAxYzUzZDA1LWVlYjgtNDMwYi05MThkLWRlMmNlYjFiNWE1ZCJ9"
-              />
-            </FadeInUp>
-            <FadeInUp delay={0.4}>
-              <ProjectCard
-                title="Projeto PRCJB"
-                description="Análise completa de indicadores de desempenho para o projeto PRCJB, com visualizações de tendências e métricas-chave."
-                embedUrl="https://app.powerbi.com/view?r=eyJrIjoiZmE1OWQxZjgtZGYyOC00NmQ1LWJkYTMtMmYzZmI5ZWFhMzFiIiwidCI6IjAxYzUzZDA1LWVlYjgtNDMwYi05MThkLWRlMmNlYjFiNWE1ZCJ9"
-              />
-            </FadeInUp>
-          </div>
-          <FadeInUp delay={0.6}>
-            <div className="mt-8 text-center sm:mt-12">
-              <p className="mb-4 text-gray-600 transition-colors duration-300 dark:text-gray-300">
-                Espaço reservado para futuros projetos
-              </p>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="outline" className="transition-all duration-300 bg-transparent">
-                  Ver Todos os Projetos
-                </Button>
-              </motion.div>
-            </div>
-          </FadeInUp>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contato" className="bg-gray-50 py-12 transition-colors duration-300 dark:bg-gray-800 md:py-16">
-          <div className="container mx-auto px-4">
-            <FadeInUp>
-              <h2 className="mb-8 text-center text-2xl font-bold text-gray-900 transition-colors duration-300 dark:text-white sm:mb-12 sm:text-3xl">
-                Entre em Contato
-              </h2>
-            </FadeInUp>
-            <div className="mx-auto max-w-md">
-              <FadeInUp delay={0.2}>
-                <div className="rounded-lg bg-white p-6 shadow-sm transition-colors duration-300 dark:bg-gray-700 sm:p-8">
-                  <div className="mb-6 flex flex-col items-center space-y-4">
-                    <div className="flex space-x-4">
-                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          asChild
-                          className="transition-all duration-300 bg-transparent"
-                        >
-                          <Link
-                            href="https://www.linkedin.com/in/bruno-reis-580a351b6"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <Linkedin className="h-5 w-5" />
-                            <span className="sr-only">LinkedIn</span>
-                          </Link>
-                        </Button>
-                      </motion.div>
-                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          asChild
-                          className="transition-all duration-300 bg-transparent"
-                        >
-                          <Link href="mailto:fernandes.bruno56@hotmail.com">
-                            <Mail className="h-5 w-5" />
-                            <span className="sr-only">Email</span>
-                          </Link>
-                        </Button>
-                      </motion.div>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-sm text-gray-600 transition-colors duration-300 dark:text-gray-300">
-                        <strong>Email:</strong> fernandes.bruno56@hotmail.com
-                      </p>
-                      <p className="text-sm text-gray-600 transition-colors duration-300 dark:text-gray-300">
-                        <strong>Telefone:</strong> (11) 98348-5985
-                      </p>
-                      <p className="text-sm text-gray-600 transition-colors duration-300 dark:text-gray-300">
-                        <strong>Localização:</strong> São Bernardo do Campo, SP
-                      </p>
-                    </div>
-                  </div>
-                  <form className="space-y-4">
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="name"
-                          className="text-sm font-medium text-gray-900 transition-colors duration-300 dark:text-white"
-                        >
-                          Nome
-                        </label>
-                        <input
-                          id="name"
-                          className="w-full rounded-md border border-gray-300 bg-white p-2 text-sm transition-colors duration-300 focus:border-gray-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-400"
-                          placeholder="Seu nome"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="email"
-                          className="text-sm font-medium text-gray-900 transition-colors duration-300 dark:text-white"
-                        >
-                          Email
-                        </label>
-                        <input
-                          id="email"
-                          type="email"
-                          className="w-full rounded-md border border-gray-300 bg-white p-2 text-sm transition-colors duration-300 focus:border-gray-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-400"
-                          placeholder="seu@email.com"
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="message"
-                        className="text-sm font-medium text-gray-900 transition-colors duration-300 dark:text-white"
-                      >
-                        Mensagem
-                      </label>
-                      <textarea
-                        id="message"
-                        rows={4}
-                        className="w-full rounded-md border border-gray-300 bg-white p-2 text-sm transition-colors duration-300 focus:border-gray-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:border-gray-400"
-                        placeholder="Como posso ajudar?"
-                      ></textarea>
-                    </div>
-                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                      <Button type="submit" className="w-full transition-all duration-300">
-                        Enviar Mensagem
-                      </Button>
-                    </motion.div>
-                  </form>
-                </div>
-              </FadeInUp>
-            </div>
-          </div>
-        </section>
+        <section id="contato" className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28"><div className="rounded-[2rem] bg-primary p-8 text-primary-foreground sm:p-12 lg:flex lg:items-end lg:justify-between"><div><p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Vamos conversar</p><h2 className="mt-4 max-w-xl text-4xl font-semibold tracking-tight sm:text-5xl">Tem um desafio de dados?</h2><p className="mt-5 max-w-lg leading-7 opacity-80">Estou aberto a oportunidades em BI, Inteligência de Mercado e Ciência de Dados.</p></div><div className="mt-8 flex flex-wrap gap-3 lg:mt-0"><Button asChild variant="secondary"><Link href="mailto:fernandes.bruno56@hotmail.com"><Mail data-icon="inline-start" />Enviar e-mail</Link></Button><Button asChild variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"><Link href="https://www.linkedin.com/in/bruno-reis-580a351b6" target="_blank" rel="noopener noreferrer"><Linkedin data-icon="inline-start" />LinkedIn</Link></Button></div></div><div className="mt-8 flex flex-wrap gap-6 text-sm text-muted-foreground"><span className="flex items-center gap-2"><Mail />fernandes.bruno56@hotmail.com</span><span className="flex items-center gap-2"><MessageCircle />(11) 98348-5985</span></div></section>
       </main>
-
-      {/* Footer */}
-      <motion.footer
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="border-t bg-white py-6 transition-colors duration-300 dark:border-gray-800 dark:bg-gray-900 sm:py-8"
-      >
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-gray-600 transition-colors duration-300 dark:text-gray-400">
-            © {new Date().getFullYear()} Bruno Reis. Todos os direitos reservados.
-          </p>
-        </div>
-      </motion.footer>
+      <footer className="border-t border-border/70"><div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-7 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between lg:px-8"><span>© {new Date().getFullYear()} Bruno Reis</span><span>Business Intelligence · Dados · Analytics</span></div></footer>
     </div>
   )
 }
+

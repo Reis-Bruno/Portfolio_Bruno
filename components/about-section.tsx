@@ -1,218 +1,28 @@
 "use client"
 
-import { Briefcase, GraduationCap, Award } from "lucide-react"
-import { motion } from "framer-motion"
-import { AnimatedSection, FadeInUp } from "@/components/animated-section"
+import { Award, BriefcaseBusiness, GraduationCap } from "lucide-react"
 
-interface ExperienceItem {
-  title: string
-  company: string
-  location: string
-  period: string
-  description: string[]
-}
+const experiences = [
+  { role: "Analista de Inteligência de Mercado / Dados", company: "IMPLACIL", period: "05/2026 — Atual", location: "São Paulo, SP", items: ["Condução de análises exploratórias e estatísticas para identificar padrões de compra e oportunidades comerciais.", "Construção e otimização de consultas analíticas e pipelines em SQL Server integrados ao ERP TOTVS.", "Automação da ingestão de fontes heterogêneas via APIs REST e Power Automate.", "Desenvolvimento de painéis Power BI para diagnósticos de performance e apoio executivo."] },
+  { role: "Analista de BI Jr", company: "S.I.N. Implant System", period: "08/2025 — 05/2026", location: "São Paulo, SP", items: ["Desenvolvimento e validação de modelo de Lead Scoring baseado em comportamento e histórico de compras.", "Integração com RD Station para análise de ROI, funil de vendas e jornada do cliente.", "Implementação de governança e Row-Level Security (RLS) para gerentes e representantes.", "Criação de relatórios de alta performance com DAX avançado para metas estratégicas."] },
+  { role: "Analista de Vendas (Planejamento & Analytics)", company: "WEG", period: "03/2023 — 02/2025", location: "São Paulo, SP", items: ["Extração, saneamento e consolidação de bases complexas de vendas e mercado.", "Desenvolvimento de estudos de demanda e identificação de padrões históricos para Marketing e Vendas."] },
+  { role: "Estagiário Técnico / Comercial", company: "MVISIA Visão Computacional", period: "05/2022 — 03/2023", location: "São Paulo, SP", items: ["Apoio a soluções de visão computacional para a indústria, métricas operacionais e catálogo em SAP Hybris."] },
+]
 
-interface EducationItem {
-  degree: string
-  institution: string
-  location: string
-  period: string
-}
+const education = [
+  ["Pós-Graduação em Ciência de Dados com IA", "FIAP", "01/2026 — 12/2026 · Cursando"],
+  ["Bacharelado em Engenharia da Computação", "Faculdade Engenheiro Salvador Arena", "08/2020 — 06/2025"],
+  ["Técnico em Eletrônica", "Etec Lauro Gomes", "Concluído"],
+]
 
-interface CertificationItem {
-  name: string
-}
+const certifications = ["Databricks Fundamentals", "SQL para Ciência de Dados", "Power BI Avançado", "Sales & Business Analytics"]
 
 export default function AboutSection() {
-  const experiences: ExperienceItem[] = [
-    {
-      title: "Analista de BI Jr",
-      company: "S.I.N",
-      location: "São Paulo, SP",
-      period: "08/2025 - Atual",
-      description: [
-        "Desenvolvimento e manutenção de dashboards interativos no Power BI, com foco em indicadores estratégicos e operacionais.",
-        "Criação e acompanhamento de KPIs, apoiando a gestão na tomada de decisão baseada em dados.",
-        "Coleta, tratamento e modelagem de dados utilizando SQL, garantindo qualidade, integridade e performance das análises.",
-        "Integração de dados provenientes de diferentes fontes (bancos de dados, planilhas e sistemas internos).",
-        "Automação de relatórios e fluxos de dados com Power Automate, otimizando processos e reduzindo atividades manuais.",
-        "Validação, limpeza e padronização de bases de dados para assegurar consistência das informações.",
-      ],
-    },
-    {
-      title: "Analista de Vendas",
-      company: "WEG",
-      location: "São Paulo, SP",
-      period: "03/2023 – 02/2025",
-      description: [
-        "Elaboração de planos estratégicos das áreas de marketing e comunicação.",
-        "Criação de planilhas e dashboards, facilitando o acompanhamento das atividades pela equipe.",
-        "Criação de KPIs e Indicadores.",
-        "Extração e tratamento de dados estruturados e não estruturados.",
-        "Controle dos indicadores de desempenho dos processos, interpretando os dados para avaliar a eficiência dos resultados.",
-        "Criação de páginas para website e blog utilizando Hybris SAP.",
-      ],
-    },
-    {
-      title: "Estagiário em vendas internas",
-      company: "MVISIA Visão Computacional",
-      location: "São Paulo, SP",
-      period: "05/2022 - 03/2023",
-      description: [
-        "Criação de relatórios e planilhas utilizando Power BI e Excel, auxiliando na produção de comunicações e relatórios diversos.",
-        "Participação em treinamentos a fim de atualizar os conhecimentos na área e impulsionar o desenvolvimento profissional, obtendo maior produtividade.",
-        "Colaboração com departamentos de desenvolvimento de produtos na criação de materiais de marketing para apresentações de vendas e reuniões com clientes.",
-      ],
-    },
-    {
-      title: "Operador Polivalente",
-      company: "Csi Cargo Logística Integral S/A",
-      location: "São Paulo, SP",
-      period: "12/2019 - 07/2021",
-      description: [
-        "Utilização dos Sistemas SAP e WMS Garden para elaboração de tabelas e resolução de problemas na operação.",
-      ],
-    },
-  ]
-
-  const education: EducationItem[] = [
-    {
-      degree: "Ciência de Dados com IA",
-      institution: "FIAP",
-      location: "São Paulo, SP",
-      period: "01/2026 - 12/2026 (Cursando)",
-    },
-    {
-      degree: "Engenharia da Computação",
-      institution: "Faculdade Engenheiro Salvador Arena",
-      location: "São Bernardo do Campo, SP",
-      period: "08/2020 - 06/2025 (Formado)",
-    },
-    {
-      degree: "Técnico Em Eletrônica",
-      institution: "Etec Lauro Gomes",
-      location: "São Bernardo do Campo, SP",
-      period: "Concluído",
-    },
-  ]
-
-  const certifications: CertificationItem[] = [
-    { name: "Técnico em Eletrônica" },
-    { name: "Power BI Avançado" },
-    { name: "Sales Analytics" },
-    { name: "SQL para ciência de dados" },
-  ]
-
-  return (
-    <section id="sobre-detalhado" className="container mx-auto px-4 py-12 md:py-16">
-      <AnimatedSection>
-        <h2 className="mb-6 text-2xl font-bold text-gray-900 transition-colors duration-300 dark:text-white sm:mb-8 sm:text-3xl">
-          Sobre Mim
-        </h2>
-      </AnimatedSection>
-
-      <div className="mb-8 sm:mb-12">
-        <FadeInUp>
-          <h3 className="mb-4 flex items-center text-lg font-semibold text-gray-900 transition-colors duration-300 dark:text-white sm:text-xl">
-            <Briefcase className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-            Experiência Profissional
-          </h3>
-        </FadeInUp>
-        <div className="space-y-6 sm:space-y-8">
-          {experiences.map((exp, index) => (
-            <FadeInUp key={index} delay={index * 0.2}>
-              <motion.div
-                whileHover={{ scale: 1.02, y: -2 }}
-                className="rounded-lg border bg-white p-4 shadow-sm transition-all duration-300 dark:border-gray-700 dark:bg-gray-800 sm:p-6"
-              >
-                <div className="mb-3 flex flex-col space-y-2 sm:flex-row sm:items-start sm:justify-between sm:space-y-0">
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-900 transition-colors duration-300 dark:text-white sm:text-base">
-                      {exp.title}
-                    </h4>
-                    <p className="text-xs text-gray-600 transition-colors duration-300 dark:text-gray-300 sm:text-sm">
-                      {exp.company} | {exp.location}
-                    </p>
-                  </div>
-                  <span className="self-start rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 transition-colors duration-300 dark:bg-gray-700 dark:text-gray-300 sm:px-3">
-                    {exp.period}
-                  </span>
-                </div>
-                <ul className="mt-3 space-y-1 text-xs text-gray-600 transition-colors duration-300 dark:text-gray-300 sm:text-sm">
-                  {exp.description.map((item, i) => (
-                    <motion.li
-                      key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="flex items-start"
-                    >
-                      <span className="mr-2 mt-1.5 h-1 w-1 rounded-full bg-gray-400 dark:bg-gray-500 sm:h-1.5 sm:w-1.5"></span>
-                      <span>{item}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
-            </FadeInUp>
-          ))}
-        </div>
-      </div>
-
-      <div className="mb-8 sm:mb-12">
-        <FadeInUp>
-          <h3 className="mb-4 flex items-center text-lg font-semibold text-gray-900 transition-colors duration-300 dark:text-white sm:text-xl">
-            <GraduationCap className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-            Formação Acadêmica
-          </h3>
-        </FadeInUp>
-        <div className="space-y-3 sm:space-y-4">
-          {education.map((edu, index) => (
-            <FadeInUp key={index} delay={index * 0.1}>
-              <motion.div
-                whileHover={{ scale: 1.02, y: -2 }}
-                className="rounded-lg border bg-white p-3 shadow-sm transition-all duration-300 dark:border-gray-700 dark:bg-gray-800 sm:p-4"
-              >
-                <div className="flex flex-col space-y-2 sm:flex-row sm:items-start sm:justify-between sm:space-y-0">
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-900 transition-colors duration-300 dark:text-white sm:text-base">
-                      {edu.degree}
-                    </h4>
-                    <p className="text-xs text-gray-600 transition-colors duration-300 dark:text-gray-300 sm:text-sm">
-                      {edu.institution} | {edu.location}
-                    </p>
-                  </div>
-                  <span className="self-start rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 transition-colors duration-300 dark:bg-gray-700 dark:text-gray-300 sm:px-3">
-                    {edu.period}
-                  </span>
-                </div>
-              </motion.div>
-            </FadeInUp>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <FadeInUp>
-          <h3 className="mb-4 flex items-center text-lg font-semibold text-gray-900 transition-colors duration-300 dark:text-white sm:text-xl">
-            <Award className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-            Certificações
-          </h3>
-        </FadeInUp>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-4">
-          {certifications.map((cert, index) => (
-            <FadeInUp key={index} delay={index * 0.1}>
-              <motion.div
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="rounded-lg border bg-white p-3 text-center shadow-sm transition-all duration-300 dark:border-gray-700 dark:bg-gray-800 sm:p-4"
-              >
-                <p className="text-sm font-medium text-gray-900 transition-colors duration-300 dark:text-white">
-                  {cert.name}
-                </p>
-              </motion.div>
-            </FadeInUp>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
+  return <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
+    <div className="mb-14 flex items-end justify-between gap-6"><div><p className="eyebrow">Trajetória</p><h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">Experiência & formação</h2></div><span className="hidden text-sm text-muted-foreground sm:block">2022 — presente</span></div>
+    <div className="grid gap-16 lg:grid-cols-[1.25fr_0.75fr]">
+      <div className="flex flex-col gap-10">{experiences.map((item) => <article key={`${item.company}-${item.period}`} className="relative border-l border-border pl-6"><span className="absolute -left-[5px] top-1 size-2 rounded-full bg-primary ring-4 ring-background" /><div className="flex flex-col justify-between gap-2 sm:flex-row"><div><h3 className="font-semibold">{item.role}</h3><p className="mt-1 text-sm text-primary">{item.company} · {item.location}</p></div><time className="text-xs font-medium text-muted-foreground">{item.period}</time></div><ul className="mt-4 flex flex-col gap-2 text-sm leading-6 text-muted-foreground">{item.items.map((point) => <li key={point} className="flex gap-2"><span className="mt-2 size-1 shrink-0 rounded-full bg-muted-foreground/60" />{point}</li>)}</ul></article>)}</div>
+      <aside className="flex flex-col gap-10"><div><h3 className="flex items-center gap-2 font-semibold"><GraduationCap className="text-primary" />Formação acadêmica</h3><div className="mt-5 flex flex-col gap-5">{education.map(([degree, institution, period]) => <div key={degree}><p className="font-medium">{degree}</p><p className="mt-1 text-sm text-muted-foreground">{institution}</p><p className="mt-1 text-xs text-muted-foreground">{period}</p></div>)}</div></div><div><h3 className="flex items-center gap-2 font-semibold"><Award className="text-primary" />Certificações</h3><div className="mt-5 flex flex-wrap gap-2">{certifications.map((cert) => <span key={cert} className="rounded-full border border-border px-3 py-2 text-xs text-muted-foreground">{cert}</span>)}</div></div><div className="rounded-2xl bg-muted p-6"><BriefcaseBusiness className="text-primary" /><p className="mt-5 text-sm leading-6 text-muted-foreground">Perfil orientado a transformar problemas de negócio em métricas, modelos e decisões melhores.</p></div></aside>
+    </div>
+  </div>
 }

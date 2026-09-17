@@ -1,29 +1,19 @@
 import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { DM_Sans, Space_Grotesk } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 
-const inter = Inter({ subsets: ["latin"] })
+const bodyFont = DM_Sans({ subsets: ["latin"], variable: "--font-body" })
+const displayFont = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" })
 
 export const metadata: Metadata = {
-  title: "Bruno Reis | Analista de Dados & Power BI",
-  description: "Portfólio profissional de Bruno Reis, especialista em análise de dados e dashboards Power BI",
-    generator: 'v0.dev'
+  title: "Bruno Reis | Business Intelligence & Dados",
+  description: "Portfólio profissional de Bruno Reis: Business Intelligence, Inteligência de Mercado e Ciência de Dados.",
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
-  return (
-    <html lang="pt-BR" className="scroll-smooth" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  )
+export const viewport: Viewport = { themeColor: "#126b59", width: "device-width", initialScale: 1 }
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="pt-BR" className={`${bodyFont.variable} ${displayFont.variable} scroll-smooth`} suppressHydrationWarning><body className={bodyFont.className}><ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>{children}</ThemeProvider></body></html>
 }
