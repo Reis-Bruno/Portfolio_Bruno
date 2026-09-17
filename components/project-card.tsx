@@ -17,11 +17,12 @@ import {
 interface ProjectCardProps {
   title: string
   description: string
-  embedUrl: string
+  embedUrl?: string
+  githubUrl?: string
 }
 
-export default function ProjectCard({ title, description, embedUrl }: ProjectCardProps) {
-  const [isLoading, setIsLoading] = useState(true)
+export default function ProjectCard({ title, description, embedUrl, githubUrl }: ProjectCardProps) {
+  const [isLoading, setIsLoading] = useState(Boolean(embedUrl))
 
   return (
     <motion.div whileHover={{ y: -5, scale: 1.02 }} transition={{ duration: 0.3 }}>
@@ -35,27 +36,37 @@ export default function ProjectCard({ title, description, embedUrl }: ProjectCar
           </CardDescription>
         </CardHeader>
         <CardContent className="p-4 sm:p-6">
-          <div className="relative aspect-video w-full overflow-hidden rounded-md border bg-gray-100 transition-colors duration-300 dark:border-gray-600 dark:bg-gray-700">
-            {isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-                  className="h-6 w-6 rounded-full border-4 border-gray-300 border-t-gray-600 dark:border-gray-600 dark:border-t-gray-300 sm:h-8 sm:w-8"
-                ></motion.div>
+          {embedUrl ? (
+            <div className="relative aspect-video w-full overflow-hidden rounded-md border bg-gray-100 transition-colors duration-300 dark:border-gray-600 dark:bg-gray-700">
+              {isLoading && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                    className="h-6 w-6 rounded-full border-4 border-gray-300 border-t-gray-600 dark:border-gray-600 dark:border-t-gray-300 sm:h-8 sm:w-8"
+                  ></motion.div>
+                </div>
+              )}
+              <iframe
+                title={title}
+                width="100%"
+                height="100%"
+                src={embedUrl}
+                frameBorder="0"
+                allowFullScreen={true}
+                onLoad={() => setIsLoading(false)}
+                className={`transition-opacity duration-300 ${isLoading ? "opacity-0" : "opacity-100"}`}
+              ></iframe>
+            </div>
+          ) : (
+            <div className="flex aspect-video flex-col justify-between rounded-md border bg-muted/40 p-5">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Projeto no GitHub</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">Pipeline de dados, análise exploratória e modelo preditivo aplicados à alfabetização no Brasil.</p>
               </div>
-            )}
-            <iframe
-              title={title}
-              width="100%"
-              height="100%"
-              src={embedUrl}
-              frameBorder="0"
-              allowFullScreen={true}
-              onLoad={() => setIsLoading(false)}
-              className={`transition-opacity duration-300 ${isLoading ? "opacity-0" : "opacity-100"}`}
-            ></iframe>
-          </div>
+              <p className="text-xs text-muted-foreground">Python · pandas · Machine Learning · INEP</p>
+            </div>
+          )}
         </CardContent>
         <CardFooter className="flex flex-col space-y-2 p-4 sm:flex-row sm:justify-between sm:space-y-0 sm:p-6">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
@@ -65,13 +76,13 @@ export default function ProjectCard({ title, description, embedUrl }: ProjectCar
               asChild
               className="w-full transition-all duration-300 bg-transparent sm:w-auto"
             >
-              <a href={embedUrl} target="_blank" rel="noopener noreferrer">
+              <a href={githubUrl ?? embedUrl} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="mr-2 h-4 w-4" />
-                Abrir
+                {githubUrl ? "Ver no GitHub" : "Abrir"}
               </a>
             </Button>
           </motion.div>
-          <Dialog>
+          {embedUrl && <Dialog>
             <DialogTrigger asChild>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
                 <Button
@@ -104,7 +115,7 @@ export default function ProjectCard({ title, description, embedUrl }: ProjectCar
                 ></iframe>
               </div>
             </DialogContent>
-          </Dialog>
+          </Dialog>}
         </CardFooter>
       </Card>
     </motion.div>
