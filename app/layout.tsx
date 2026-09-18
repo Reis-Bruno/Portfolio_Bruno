@@ -15,5 +15,5 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: "#126b59", width: "device-width", initialScale: 1 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pt-BR" className={`${bodyFont.variable} ${displayFont.variable} scroll-smooth`} suppressHydrationWarning><body className={bodyFont.className}><ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>{children}</ThemeProvider></body></html>
+  return <html lang="pt-BR" className={`${bodyFont.variable} ${displayFont.variable} scroll-smooth`} suppressHydrationWarning><body className={bodyFont.className}><ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange={false}>{children}</ThemeProvider></body></html>
 }
